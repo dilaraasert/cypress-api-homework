@@ -9,10 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "devDependencies": {
-    "@types/node": "^26.1.1",
-    "cypress": "^15.18.1",
-    "typescript": "^7.0.2"
+    "@types/node": "^20.14.10",
+    "cypress": "^13.13.1",
+    "typescript": "^5.5.3"
   }
 }
