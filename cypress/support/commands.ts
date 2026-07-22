@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 declare global {
     namespace Cypress {
         interface Chainable {
@@ -9,3 +11,5 @@ declare global {
 Cypress.Commands.add('validateStatusCode', (response: any, expectedStatus: number) => {
     expect(response.status).to.eq(expectedStatus);
 });
+
+export {};
