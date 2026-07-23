@@ -1,24 +1,22 @@
 import CommentsApi from '../api/CommentsApi';
 
-describe('Yorumlar (Comments) API Test Senaryoları', () => {
+describe('Comments API Test Senaryoları', () => {
 
     beforeEach(() => {
         cy.fixture('comments').as('commentData');
     });
 
-    it('Senaryo 8: Tüm yorumlar getirilmeli ve ilk kaydın e-posta adresi doğrulanmalı', function () {
-        CommentsApi.getComments().then((response) => {
+    it('Senaryo 8: Comment Listesi', function () {
+
+        CommentsApi.getComments().then((response: any) => {
 
             // @ts-ignore
             cy.validateStatusCode(response, 200);
 
-            expect(response.body, 'API yanıtı bir dizi (array) formatında olmalı').to.be.an('array');
-            expect(response.body.length, 'Dönen yorum listesi boş olmamalı').to.be.greaterThan(0);
-
-            const firstComment = response.body[0];
-
-            expect(firstComment, 'İlk kayıt içerisinde email alanı (property) bulunmalı').to.have.property('email');
-            expect(firstComment.email, 'İlk kaydın e-posta adresi fixture verisiyle eşleşmeli').to.eq(this.commentData.firstCommentEmail);
+            expect(response.body).to.be.an('array');
+            expect(response.body.length).to.be.greaterThan(0);
+            expect(response.body[0]).to.have.property('email');
+            expect(response.body[0].email).to.eq(this.commentData.firstCommentEmail);
 
         });
     });
