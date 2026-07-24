@@ -12,10 +12,13 @@ describe('Kullanıcı (Users) API Test Senaryoları', () => {
         UsersApi.getUserById(1).then((response) => {
             // @ts-ignore
             cy.validateStatusCode(response, 200);
+
             expect(response.body.name).to.eq(testData.expectedName);
             expect(response.body.email).to.eq(testData.expectedEmail);
+
             expect(response.body).to.have.property('company');
             expect(response.body.company).to.be.an('object');
+            expect(response.body.company).to.have.property('name').that.is.a('string');
         });
     });
 
@@ -27,7 +30,9 @@ describe('Kullanıcı (Users) API Test Senaryoları', () => {
             expect(response.body).to.have.length(10);
 
             response.body.forEach((user: any) => {
-                expect(user).to.have.property('email');
+                expect(user).to.have.property('id').that.is.a('number');
+                expect(user).to.have.property('name').that.is.a('string');
+                expect(user).to.have.property('email').that.is.a('string').and.not.be.empty;
             });
         });
     });

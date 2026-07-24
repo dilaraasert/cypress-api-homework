@@ -1,6 +1,6 @@
 import PostsApi from '../api/PostsApi';
 
-describe('Post (Gönderi) API Testleri', () => {
+describe('Post API Testleri', () => {
 
     it('Senaryo 1: Tüm postları başarıyla listelemeli (GET /posts)', () => {
         PostsApi.getPosts().then((response: any) => {
@@ -8,10 +8,10 @@ describe('Post (Gönderi) API Testleri', () => {
             cy.validateStatusCode(response, 200);
             expect(response.body).to.be.an('array');
             expect(response.body.length).to.be.greaterThan(0);
-            expect(response.body[0]).to.have.property('id');
-            expect(response.body[0]).to.have.property('title');
-            expect(response.body[0]).to.have.property('body');
-            expect(response.body[0]).to.have.property('userId');
+            expect(response.body[0]).to.have.property('id').that.is.a('number');
+            expect(response.body[0]).to.have.property('title').that.is.a('string');
+            expect(response.body[0]).to.have.property('body').that.is.a('string');
+            expect(response.body[0]).to.have.property('userId').that.is.a('number');
         });
     });
 
@@ -30,7 +30,7 @@ describe('Post (Gönderi) API Testleri', () => {
             PostsApi.createPost(yeniPostVerisi).then((response: any) => {
                 // @ts-ignore
                 cy.validateStatusCode(response, 201);
-                expect(response.body).to.have.property('id');
+                expect(response.body).to.have.property('id').that.is.a('number');
                 expect(response.body.title).to.eq(yeniPostVerisi.title);
                 expect(response.body.userId).to.eq(yeniPostVerisi.userId);
             });
